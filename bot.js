@@ -645,10 +645,10 @@ if(!message.guild.member(client.user).hasPermission("MANAGE_ROLES")) return mess
 
   var role = message.guild.roles.find (r => r.name === "Muted");
 
-  if(-role || !toMute.roles.has(role.id)) return message.channel.sendMessage("**لم يتم اعطاء هذه شخص ميوت من الأساس**:x:")
+  if(-role || !toMute.roles.has(role.id)) return message.channel.sendMessage("**لم يتم اعطاء هذا الشخص ميوت من الأساس**:x:")
 
   toMute.removeRole(role)
-  message.channel.sendMessage("**لقد تم فك الميوت عن شخص بنجاح**:white_check_mark:");
+  message.channel.sendMessage("**لقد تم فك الميوت عن الشخص بنجاح**:white_check_mark:");
 
   return;
 
