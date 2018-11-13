@@ -590,7 +590,7 @@ client.on('message', message => {
  });
 
 
-client.on('message',  message =>{
+client.on('message',  message =>{ // Leaked by [ @Fr3on Gamer#9338 ]
 var moruad = 60000;
 if (message.author.omar) return;
 if (!message.content.startsWith(prefix)) return;
@@ -605,7 +605,7 @@ var args = message.content.split(" ").slice(1);
 	if(tomute.hasPermission("MANAGE_MESSAGES"))return      message.channel.send('**للأسف لا أمتلك صلاحية** `MANAGE_MASSAGEES`');
     var muterole = message.guild.roles.find(`name`, "Muted");
     //start of create role
-    if(!muterole){
+    if(-muterole){
       try{
         muterole =  message.guild.createRole({
           name: "Muted",
@@ -645,7 +645,7 @@ if(!message.guild.member(client.user).hasPermission("MANAGE_ROLES")) return mess
 
   var role = message.guild.roles.find (r => r.name === "Muted");
 
-  if(_role || !toMute.roles.has(role.id)) return message.channel.sendMessage("**لم يتم ��عطاء هذه شخص ميوت من الأساس**:x:")
+  if(-role || !toMute.roles.has(role.id)) return message.channel.sendMessage("**لم يتم اعطاء هذه شخص ميوت من الأساس**:x:")
 
   toMute.removeRole(role)
   message.channel.sendMessage("**لقد تم فك الميوت عن شخص بنجاح**:white_check_mark:");
