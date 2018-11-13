@@ -227,5 +227,32 @@ client.on('message', message => {
 }
 });
 
+client.on('message', message => {
+	var prefix = "$";
+if (message.content.startsWith(prefix + 'tag')) {
+    let args = message.content.split(" ").slice(1);
+if(!args[0]) return message.reply(' **مرجو كتابة نص الدي تريد** ');  
+
+    figlet(args.join(" "), (err, data) => {
+              message.channel.send("```" + data + "```")
+           })
+}
+});
+
+
+client.on('message', message => {
+  var prefix ="$"; 
+if (message.content.startsWith(prefix + 'perms')) {
+         if(!message.channel.guild) return;
+         var perms = JSON.stringify(message.channel.permissionsFor(message.author).serialize(), null, 4);
+         var zPeRms = new Discord.RichEmbed()
+         .setColor('RANDOM')
+         .setTitle(':tools: **Permissions** ')
+         .addField(' 🎇 **Your Permissions:**',perms)
+                  message.channel.send({embed:zPeRms});
+
+    }
+});
+
 
 client.login(process.env.BOT_TOKEN);
