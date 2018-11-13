@@ -605,7 +605,7 @@ var args = message.content.split(" ").slice(1);
 	if(tomute.hasPermission("MANAGE_MESSAGES"))return      message.channel.send('**للأسف لا أمتلك صلاحية** `MANAGE_MASSAGEES`');
     var muterole = message.guild.roles.find(`name`, "Muted");
     //start of create role
-    if(_muterole){
+    if(!muterole){
       try{
         muterole =  message.guild.createRole({
           name: "Muted",
