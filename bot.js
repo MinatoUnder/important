@@ -207,8 +207,6 @@ message.author.sendMessage(`
  ❖ _hide اخفاء جميع روومات السيرفر
  ❖ _unhide اضهار جميع الرومات المخفية
  ❖ _autoc Reaction Role
- ❖ _support رابط سيرفر الدعم الفني
- ❖ _invite رابط اضافة البوت
  ❖ _ping لمعرفه سرعه اتصال البوت
 ─════════════ {✯ By Minato ! ✯} ════════════─
 **`);
