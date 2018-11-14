@@ -650,4 +650,384 @@ client.on('message', async message =>{
  });
 
 
+client.on('message', message => {
+	var command = message.content.toLowerCase().split(" ")[0];
+	var args = message.content.toLowerCase().split(" ");
+if(null == message.guild || !message.guild) return;
+	var userM = message.guild.member(message.mentions.users.first() || message.guild.members.find(m => m.id === args[1]));
+	var logChannel = message.guild.channels.find(c => c.name === 'log');
+	var prefix = '$';
+	
+	if(command == prefix + 'ban') {
+	if(!message.channel.guild) return message.reply(':no_entry: | This Command For Servers Only!'); 
+        if(!message.member.hasPermission('BAN_MEMBERS')) return message.channel.send(':no_entry: | You dont have **BAN_MEMBERS** Permission!');
+        if(!message.guild.member(client.user).hasPermission('BAN_MEMBERS')) return message.channel.send(':no_entry: | I dont have **BAN_MEMBERS** Permission!');
+		if(!message.guild.member(client.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
+		if(!userM) return message.channel.send(`**➥ Useage:** ${prefix}ban \`\`@Name\`\` time reason`);
+		if(userM.user.id === message.author.id) return message.channel.send(':no_entry: | Why you want ban **Your Self** ?');
+		if(userM.user.id === message.guild.owner.id) return message.channel.send(':no_entry: | Nice try dude \:D');
+		if(message.guild.member(userM.user).highestRole.position >= message.guild.member(message.member).highestRole.position) return message.channel.send(`:no_entry: | You cant give **${userM.user.username}** Ban beacuse him role highest then your role!`);
+		if(message.guild.member(userM.user).highestRole.position >= message.guild.member(client.user).highestRole.position) return message.channel.send(`:no_entry: | I cant give **${userM.user.username}** Ban beacuse him role highest then my role!`);
+		if(!message.guild.member(userM.user).bannable) return message.channel.send(`:no_entry: | I cant give **${userM.user.username}** Ban.`);
+//xRGRx .. By Julian
+		var time = message.content.split(" ")[2];
+		if(!time) time = '1d';
+
+		if(!ms(time)) {
+			var reason = message.content.split(' ')[2];
+		}else {
+			var reason = message.content.split(' ')[3];
+		}
+		
+		if(!reason) reason = 'No reason provided.';
+		
+		userM.user.send(`:no_entry: | You have \`\`BANNED\`\` From the server **${message.guild.name}**, By: **${message.author.tag}**, Reason: \`\`${reason}\`\`, Time: **${time}**`).catch();
+        message.guild.member(userM.user).ban({ reason: reason });
+        message.channel.send(`:white_check_mark: | Successfully \`\`BANNED\`\` ${userM.user.username} from the server! :airplane: \`\`${reason}\`\``);
+		//xRGRx .. By Julian
+		let banInfo = new Discord.RichEmbed()
+		.setTitle('**[BANNED]**')
+		.setThumbnail(message.author.avatarURL)
+		.setColor('GREEN')
+		.setDescription(`**\n:airplane: Successfully \`\`BANNED\`\` **${userM.user.username}** From the server!\n\n**User:** <@${userM.user.id}> (ID: ${userM.user.id})\n**By:** <@${message.author.id}> (ID: ${message.author.id})\n**Reason:** \`\`${reason}\`\`\n**Time:** ${time}`)
+		.setTimestamp()
+		.setFooter(userM.user.tag, userM.user.avatarURL)
+		
+		if(logChannel) {
+			logChannel.send(banInfo);
+		}
+		//xRGRx .. By Julian
+		setTimeout(function() {
+			message.guild.fetchBans().then(bans => {
+				var Found = bans.find(m => m.id === userM.user.id);
+				if(!Found) return;
+				
+				message.guild.unban(userM.user);
+			
+				let unbanInfo = new Discord.RichEmbed()
+				.setTitle('**[UNBANNED]**')
+				.setThumbnail(message.guild.iconURL)
+				.setColor('GREEN')
+				.setDescription(`**\n:airplane: Successfully \`\`UNBANNED\`\` **${userM.user.username}** From the server!\n\n**User:** <@${userM.user.id}> (ID: ${userM.user.id})\n**Reason:** \`\`Time Ended.\`\``)
+				.setTimestamp()
+				.setFooter(userM.user.tag, userM.user.avatarURL)
+				
+				if(logChannel) {
+					logChannel.send(banInfo);
+				}
+			})
+		}, ms(time))
+	}
+	if(command == prefix + 'unban') {
+		//xRGRx .. By Julian
+		 if(!message.channel.guild) return message.reply(':no_entry: | This Command For Servers Only!'); 
+		if(!message.member.hasPermission('BAN_MEMBERS')) return message.channel.send(':no_entry: | You dont have **BAN_MEMBERS** Permission!');
+		if(!message.guild.member(client.user).hasPermission("BAN_MEMBERS")) return message.channel.send(':no_entry: | I dont have **BAN_MEMBERS** Permission!');
+		if(!args[1]) return  message.channel.send(':no_entry: | Please type the ID of user');
+		if(args[1].length < 16) return message.reply(':no_entry: | This ID is not id user!');
+		message.guild.fetchBans().then(bans => {
+			var Found = bans.find(m => m.id === args[1]);
+			if(!Found) return message.channel.send(`:no_entry: | <@${message.author.id}> This preson not have any ban from this server! :unlock:`);
+			message.guild.unban(args[1]);
+			message.channel.send(`:white_check_mark: Successfully \`\`UNBANNED\`\` <@${args[1]}> From the server!`);
+			//xRGRx .. By Julian
+			let banInfo = new Discord.RichEmbed()
+			.setTitle('**[UNBANNED]**')
+			.setThumbnail(message.author.avatarURL)
+			.setColor('GREEN')
+			.setDescription(`**\n:airplane: Successfully \`\`UNBANNED\`\` <@${args[1]}> From the server!\n\n**User:** <@${args[1]}> (ID: ${args[1]})\n**By:** <@${message.author.id}> (ID: ${message.author.id})`)
+			.setTimestamp()
+			.setFooter(userM.user.tag, userM.user.avatarURL)
+			
+			if(logChannel) {
+				logChannel.send(banInfo);
+			}
+		})
+	}
+});
+
+
+ client.on('message', message => {
+ 	var prefix = "$"
+   if (message.author.x5bz) return;
+   if (!message.content.startsWith(prefix)) return;
+ 
+   let command = message.content.split(" ")[0];
+   command = command.slice(prefix.length);
+ 
+   let args = message.content.split(" ").slice(1);
+ 
+   if (command == "kick") {
+                if(!message.channel.guild) return message.reply('** This command only for servers**');
+          
+   if(!message.guild.member(message.author).hasPermission("KICK_MEMBERS")) return message.reply("**You Don't Have ` KICK_MEMBERS ` Permission**");
+   if(!message.guild.member(client.user).hasPermission("KICK_MEMBERS")) return message.reply("**I Don't Have ` KICK_MEMBERS ` Permission**");
+   let user = message.mentions.users.first();
+   let reason = message.content.split(" ").slice(2).join(" ");
+   if (message.mentions.users.size < 1) return message.reply("**Mention SomeOne**");
+   if(!reason) return message.reply ("**Write A Reason**");
+   if (!message.guild.member(user)
+   .kickable) return message.reply("**I Cant Kick SomeOne High Than My Rank**");
+ 
+   message.guild.member(user).kick();
+ 
+   const kickembed = new Discord.RichEmbed()
+   .setAuthor(`KICKED!`, user.displayAvatarURL)
+   .setColor("RANDOM")
+   .setTimestamp()
+   .addField("**User:**",  '**[ ' + `${user.tag}` + ' ]**')
+   .addField("**By:**", '**[ ' + `${message.author.tag}` + ' ]**')
+   .addField("**Reason:**", '**[ ' + `${reason}` + ' ]**')
+   message.channel.send({
+     embed : kickembed
+   })
+ }
+ });
+
+
+ client.on('message', message => {
+ var prefix = "$";
+        if(message.content === prefix + "mutechannel") {
+                            if(!message.channel.guild) return message.reply('** This command only for servers**');
+ 
+    if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply(' **You Dont Have Perms**');
+               message.channel.overwritePermissions(message.guild.id, {
+             SEND_MESSAGES: false
+ 
+               }).then(() => {
+                   message.reply("**:white_check_mark: Success Has Been Locked Channel**")
+               });
+                 }
+     if(message.content === prefix + "unmutechannel") {
+                         if(!message.channel.guild) return message.reply('** This command only for servers**');
+ 
+    if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('**You Dont Have Perms**');
+               message.channel.overwritePermissions(message.guild.id, {
+             SEND_MESSAGES: true
+ 
+               }).then(() => {
+                   message.reply("**:white_check_mark: Success Has Been UnLocked Channel**")
+               });
+     }
+        
+ });
+
+
+client.on('message', message => {
+             var prefix = "$";
+     if (message.author.bot) return;
+     if (!message.content.startsWith(prefix)) return;
+ 
+     let command = message.content.split(" ")[0];
+     command = command.slice(prefix.length);
+ 
+     let args = message.content.split(" ").slice(1);
+ 
+     if (command == "embed") {
+         if (!message.channel.guild) return message.reply('** This command only for servers **');
+         let say = new Discord.RichEmbed()
+             .setDescription(args.join("  "))
+             .setColor(0x23b2d6)
+         message.channel.sendEmbed(say);
+         message.delete();
+     }
+ });
+
+
+
+ client.on('message', omar => {
+ var prefix = "$";
+ if(omar.content.split(' ')[0] == prefix + 'dc') {  // delete all channels
+ if (!omar.channel.guild) return;
+ if(!omar.guild.member(omar.author).hasPermission("MANAGE_CHANNELS")) return omar.reply("**You Don't Have ` MANAGE_CHANNELS ` Permission**");
+ if(!omar.guild.member(client.user).hasPermission("MANAGE_CHANNELS")) return omar.reply("**I Don't Have ` MANAGE_CHANNELS ` Permission**");
+ omar.guild.channels.forEach(m => {
+ m.delete();
+ });// omar jedol / Codes
+ }// omar jedol / Codes
+ if(omar.content.split(' ')[0] == prefix + 'dr') { // delete all roles
+ if (!omar.channel.guild) return;
+ if(!omar.guild.member(omar.author).hasPermission("MANAGE_ROLES_OR_PERMISSIONS")) return omar.reply("**You Don't Have ` MANAGE_ROLES_OR_PERMISSIONS ` Permission**");
+ if(!omar.guild.member(client.user).hasPermission("MANAGE_ROLES_OR_PERMISSIONS")) return omar.reply("**I Don't Have ` MANAGE_ROLES_OR_PERMISSIONS ` Permission**");
+ omar.guild.roles.forEach(m => {
+ m.delete();
+ });// omar jedol / Codes
+ omar.reply("✅ `Success Deleted All Roles - Ranks`")
+ }// omar jedol / Codes
+ });
+
+
+client.on("message", async message => {
+            if(!message.channel.guild) return;
+            var prefix = "$";
+        if(message.content.startsWith(prefix + 'invites')) {
+        var nul = 0
+        var guild = message.guild
+        await guild.fetchInvites()
+            .then(invites => {
+             invites.forEach(invite => {
+                if (invite.inviter === message.author) {
+                     nul+=invite.uses
+                    }
+                });
+            });
+          if (nul > 0) {
+              console.log(`\n${message.author.tag} has ${nul} invites in ${guild.name}\n`)
+              var embed = new Discord.RichEmbed()
+                  .setColor("#000000")
+                    .addField(`${message.author.username}`, `لقد قمت بدعوة **${nul}** شخص`)
+                          message.channel.send({ embed: embed });
+                      return;
+                    } else {
+                       var embed = new Discord.RichEmbed()
+                        .setColor("#000000")
+                        .addField(`${message.author.username}`, `لم تقم بدعوة أي شخص لهذة السيرفر`)
+
+                       message.channel.send({ embed: embed });
+                        return;
+                    }
+        }
+        if(message.content.startsWith(prefix + 'invite-codes')) {
+let guild = message.guild
+var codes = [""]
+message.channel.send(":postbox: **لقد قمت بأرسال جميع روابط الدعوات التي قمت بأنشائها في الخاص**")
+guild.fetchInvites()
+.then(invites => {
+invites.forEach(invite => {
+if (invite.inviter === message.author) {
+codes.push(`discord.gg/${invite.code}`)
+}
+})
+}).then(m => {
+if (codes.length < 0) {
+    var embed = new Discord.RichEmbed()
+.setColor("#000000")
+.addField(`Your invite codes in ${message.guild.name}`, `You currently don't have any active invites! Please create an invite and start inviting, then you will be able to see your codes here!`)
+message.author.send({ embed: embed });
+return;
+} else {
+    var embed = new Discord.RichEmbed()
+.setColor("#000000")
+.addField(`Your invite codes in ${message.guild.name}`, `Invite Codes:\n${codes.join("\n")}`)
+message.author.send({ embed: embed });
+return;
+}
+})
+}
+
+});
+
+
+client.on('message', message => {
+    if (message.content.startsWith("$new")) {
+        const reason = message.content.split(" ").slice(1).join(" ");
+        if (!message.guild.roles.exists("name", "Ticket Bot")) return message.channel.send(`This server doesn't have a \`Ticket Bot\` role made, so the ticket won't be opened.\nIf you are an administrator, make one with that name exactly and give it to users that should be able to see tickets.`);
+        if (message.guild.channels.exists("name", "ticket-" + message.author.username + message.author.discriminator)) return message.channel.send(`You already have a ticket open.`);
+        message.guild.createChannel(`ticket-${message.author.username + message.author.discriminator}`, "text").then(c => {
+            let role = message.guild.roles.find("name", "Support Team");
+            let role2 = message.guild.roles.find("name", "@everyone");
+            c.overwritePermissions(role, {
+                SEND_MESSAGES: true,
+                READ_MESSAGES: true
+            });
+            c.overwritePermissions(role2, {
+                SEND_MESSAGES: false,
+                READ_MESSAGES: false
+            });
+            c.overwritePermissions(message.author, {
+                SEND_MESSAGES: true,
+                READ_MESSAGES: true
+            });
+            message.channel.send(`:white_check_mark: Your ticket has been created, #${c.name}.`);
+            const embed = new Discord.RichEmbed()
+                .setColor(0xCF40FA)
+                .addField(`Hey ${message.author.username}!`, `Please try explain why you opened this ticket with as much detail as possible. Our **Support Staff** will be here soon to help.`)
+                .setTimestamp();
+            c.send({
+                embed: embed
+            });
+        }).catch(console.error); 
+    }
+
+
+    if (message.content.startsWith("$close")) {
+        if (!message.channel.name.startsWith(`ticket-`)) return message.channel.send(`You can't use the close command outside of a ticket channel.`);
+
+        message.channel.send(`Are you sure? Once confirmed, you cannot reverse this action!\nTo confirm, type \`!close\`. This will time out in 10 seconds and be cancelled.`)
+            .then((m) => {
+                message.channel.awaitMessages(response => response.content === '!close', {
+                        max: 1,
+                        time: 10000,
+                        errors: ['time'],
+                    })
+                    .then((collected) => {
+                        message.channel.delete();
+                    })
+                    .catch(() => {
+                        m.edit('Ticket close timed out, the ticket was not closed.').then(m2 => {
+                            m2.delete();
+                        }, 3000);
+                    });
+            });
+    }
+
+});
+
+
+client.on("message", message => {
+  let men = message.mentions.users.first();
+  if(message.content.startsWith(prefix + 'vkick')) {
+    try {
+    if(!men) {
+      message.channel.send("**Mention A Person**");
+      return;
+    }
+    if(!message.guild.member(men).voiceChannel) return message.channel.send("The Person Not In A VoiceChannel");
+    if(!message.member.hasPermission("MOVE_MEMBERS")) return message.channel.send("You Dont Have Permissions To Kick This Person")
+    if(!message.guild.me.hasPermission("MOVE_MEMBERS")) return message.channel.send("The Bot Not Have Permissions To Kick This Person");
+       if(!message.guild.me.hasPermission("MANAGE_CHANNELS")) return message.channel.send("I Dont Have Permissions To Create VoiceChannel")
+
+    message.guild.createChannel("vKick", "voice").then(c => {
+      message.guild.member(men).setVoiceChannel(c.id)
+    setTimeout(() => {
+      c.delete()
+    }, 100)
+    });
+    message.channel.send(`**Has Been Kicked From The VoiceChannel \`\`${men.username}\`\`**`)
+} catch (e) {
+  message.channel.send("I Cant Do This For Permissions Or Something :/");
+}
+  }
+});
+
+
+client.on('message',message =>{
+    var prefix = "$";
+    if(message.content.startsWith(prefix + 'topinv')) {
+  message.guild.fetchInvites().then(i =>{
+  var invites = [];
+   
+  i.forEach(inv =>{
+    var [invs,i]=[{},null];
+     
+    if(inv.maxUses){
+        invs[inv.code] =+ inv.uses+"/"+inv.maxUses;
+    }else{
+        invs[inv.code] =+ inv.uses;
+    }
+        invites.push(`invite: ${inv.url} inviter: ${inv.inviter} \`${invs[inv.code]}\`;`);
+   
+  });
+  var embed = new Discord.RichEmbed()
+  .setColor("#000000")
+  .setDescription(`${invites.join(`\n`)+'\n\n**By:** '+message.author}`)
+  .setThumbnail("https://cdn.discordapp.com/attachments/442414506430169098/489929808244113409/JPEG_20180913_232108.jpg")
+           message.channel.send({ embed: embed });
+   
+  });
+   
+    }
+  });
+
+
 client.login(process.env.BOT_TOKEN);
