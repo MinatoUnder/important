@@ -171,6 +171,24 @@ message.author.sendMessage(`
  ❖ _topinv  اكثر الاشخاص الي ينشرو السيرفر
  ❖ _new ينشئ لك رووم لا يمكن يشوفها غير الستاف
  ❖ _allbots لعرض جميع البوتات الي بالسيرفر
+─════════════ {✯ By Minato ! ✯} ════════════─
+**`);
+
+  }
+});
+
+client.on('message', message => {
+  if (message.author.bot) return;
+   if (message.content === prefix + "help") {
+    if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**انت لست من الادارة :x:** `ADMINISTRATOR`' );
+
+
+
+
+message.author.sendMessage(`
+**
+─════════════ {✯اوامر البوت✯} ════════════─
+
  ❖ _count يعرض لك عدد الاشخاص بالسيرفر بدون بوتات
  ❖ _rooms يعرض لك كل الرومات الي بالسيرفر مع عددها
  ❖ _ban حضر عضو من السيرفر
@@ -207,7 +225,6 @@ message.author.sendMessage(`
 
   }
 });
-
 
 client.on('message', message => {
                                 if(!message.channel.guild) return;
