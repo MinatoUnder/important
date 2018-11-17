@@ -126,7 +126,6 @@ client.on('message', message => {
                 .addField(' » الرسالة : ', args)
                 .setColor('#58FA82')
                 .setThumbnail(message.author.avatarURL)
-                .setFooter(copy, client.user.avatarURL);
                 // m.send(`[${m}]`);
                 m.send(`${m}`,{embed: bc});
             });
