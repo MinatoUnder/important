@@ -191,8 +191,6 @@ client.on('message', message => {
       message.guild.members.forEach(m => {
     
     var bc = new
-            if (message.content.startsWith(prefix + "bcr")) {
-                         if (!message.member.hasPermission("ADMINISTRATOR"))  return;
   let args = message.content.split(" ").slice(1);
   var argresult = args.join(' '); 
   message.guild.members.filter(m => m.presence.status !== 'all').forEach(m => {
