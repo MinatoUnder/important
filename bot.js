@@ -105,24 +105,6 @@ if(msg.author.id !== myID) return;
 });
 
 
-client.on("message", message => {
-    var prefix = "$";
- 
-            var args = message.content.substring(prefix.length).split(" ");
-            if (message.content.startsWith(prefix + "bc")) {
-                         if (!message.member.hasPermission("CONNECT"))  return;
-                            let embed4 = new Discord.RichEmbed()
-             .setDescription("**:white_check_mark: | جاري ارسال البرودكاست**")
-           .addField("مرسل البرودكاست" , message.author)
-          .addField("نص البرودكاست" ,args.join("  "))
-                            .addField("عدد الاعضاء المرسل لهم :busts_in_silhouette:" ,` **[${message.guild.memberCount}]**`,true)
-                                                            .setColor("#008000")
-                                message.channel.sendEmbed(embed4);
-                                                      message.delete();
-                            
-                          }
-});
-
 
 client.on('message', message => {
     var prefix = "$";
@@ -142,7 +124,9 @@ client.on('message', message => {
                 .addField('» السيرفر :', `${message.guild.name}`)
                 .addField('» المرسل : ', `${message.author.username}#${message.author.discriminator}`)
                 .addField(' » الرسالة : ', args)
-                .setColor('#ff0000')
+                .setColor('#58FA82')
+                .setThumbnail(message.author.avatarURL)
+                .setFooter(copy, client.user.avatarURL);
                 // m.send(`[${m}]`);
                 m.send(`${m}`,{embed: bc});
             });
