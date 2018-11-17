@@ -104,110 +104,21 @@ if(msg.author.id !== myID) return;
   }
 });
 
-client.on('message', message => {
-    if (message.author.bot) return;
-     if (message.content === prefix + "bc") {
-		 message.channel.send('**The Message Was Sent On Private**');
-            
-	
-		 
 
 
- message.author.sendMessage(`
- **
-════════════════════════════════════════════════
-❖ $bcn -> برودكاست  للكل  مع منشن  بدون امبد
-❖ $bce -> برودكاست  للكل  مع امبد
-════════════════════════════════════════════════
-Enjoy !
-**`);
+ client.on("message", message => {
 
-    }
-});
- 
- client.on('message', message => {
-  	    var prefix = "$";
-                if(!message.channel.guild) return;
-      if(message.content.startsWith(prefix + 'bce')) {
-      if(!message.channel.guild) return message.channel.send('**This Command Only For Servers**').then(m => m.delete(5000));
-    if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**You Dont Have perms** `ADMINISTRATOR`' );
-      let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
-      let copy = "Amaterasu Bot";
-      let request = `Requested By ${message.author.username}`;
-      if (!args) return message.reply('**Write Some Things To Broadcast**');message.channel.send(`**Are You Sure \nThe Broadcast: ** \` ${args}\``).then(msg => {
-      msg.react('✅')
-      .then(() => msg.react('❌'))
-      .then(() =>msg.react('✅'))
-      
-      let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
-      let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
-      
-      let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
-      let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
-   reaction1.on("collect", r => {
-      message.channel.send(`**☑ | Done ... The Broadcast Message Has Been Sent To __${message.guild.members.size}__ Members**`).then(m => m.delete(5000));
-      message.guild.members.forEach(m => {
-    
-    var bc = new
-         Discord.RichEmbed()
-         .setColor('RANDOM')
-         .setTitle('💥 BROADCAST')
-         .addField('» السيرفر :', message.guild.name)
-         .addField('» المرسل :', message.author.username)
-         .addField('» الرسالة :', args)
-         .setThumbnail(message.author.avatarURL)
-         .setFooter(copy, client.user.avatarURL);
-      m.send({ embed: bc })
-      msg.delete();
-      })
-      })
-      reaction2.on("collect", r => {
-      message.channel.send(`**Broadcast Canceled.**`).then(m => m.delete(5000));
-      msg.delete();
-      })
-      })
-      }
-      });
-
- client.on('message', message => {
-  	    var prefix = "$";
-                if(!message.channel.guild) return;
-      if(message.content.startsWith(prefix + 'bcn')) {
-      if(!message.channel.guild) return message.channel.send('**This Command Only For Servers**').then(m => m.delete(5000));
-    if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**You Dont Have perms** `ADMINISTRATOR`' );
-      let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
-      let copy = "Amaterasu Bot";
-      let request = `Requested By ${message.author.username}`;
-      if (!args) return message.reply('**Write Some Things To Broadcast**');message.channel.send(`**Are You Sure \nThe Broadcast: ** \` ${args}\``).then(msg => {
-      msg.react('✅')
-      .then(() => msg.react('❌'))
-      .then(() =>msg.react('✅'))
-      
-      let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
-      let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
-      
-      let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
-      let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
-   reaction1.on("collect", r => {
-      message.channel.send(`**☑ | Done ... The Broadcast Message Has Been Sent To __${message.guild.members.size}__ Members**`).then(m => m.delete(5000));
-      message.guild.members.forEach(m => {
-    
-    var bc = new
+            if (message.content.startsWith(prefix + "bc")) {
+                         if (!message.member.hasPermission("ADMINISTRATOR"))  return;
+  let args = message.content.split(" ").slice(1);
+  var argresult = args.join(' '); 
   message.guild.members.filter(m => m.presence.status !== 'all').forEach(m => {
  m.send(`${argresult}\n ${m}`);
 })
  message.channel.send(`\`${message.guild.members.filter(m => m.presence.status !== 'all').size}\` : عدد الاعضاء المستلمين`); 
  message.delete(); 
-      })
-      })
-      reaction2.on("collect", r => {
-      message.channel.send(`**Broadcast Canceled.**`).then(m => m.delete(5000));
-      msg.delete();
-      })
-      })
-      }
-      });
-
+};     
+});
 
 
 client.on('message', message => {
