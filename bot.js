@@ -191,7 +191,6 @@ client.on('message', message => {
       message.guild.members.forEach(m => {
     
     var bc = new
-  let args = message.content.split(" ").slice(1);
   var argresult = args.join(' '); 
   message.guild.members.filter(m => m.presence.status !== 'all').forEach(m => {
  m.send(`${argresult}\n ${m}`);
