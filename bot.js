@@ -150,6 +150,24 @@ if(msg.author.id !== myID) return;
       }
       });
 
+
+client.on("message", message => {
+
+            if (message.content.startsWith(prefix + "bc4")) {
+                         if (!message.member.hasPermission("ADMINISTRATOR"))  return;
+  let args = message.content.split(" ").slice(1);
+  var argresult = args.join(' '); 
+  message.guild.members.filter(m => m.presence.status !== 'all').forEach(m => {
+            if (message.content.startsWith([User]")) {
+ let args = message.content.split(" ").slice(1);
+  var argresult = args.join(' '); 
+ m.send(`${argresult}\n ${m}`);
+})
+ message.channel.send(`\`${message.guild.members.filter(m => m.presence.status !== 'all').size}\` : عدد الاعضاء المستلمين`); 
+ message.delete(); 
+};     
+});
+
 client.on('message', message => {
   if (message.author.bot) return;
    if (message.content === prefix + "help") {
