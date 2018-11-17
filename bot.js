@@ -191,11 +191,19 @@ client.on('message', message => {
       message.guild.members.forEach(m => {
     
     var bc = new
+  let args = message.content.split(" ").slice(1);
   var argresult = args.join(' '); 
   message.guild.members.filter(m => m.presence.status !== 'all').forEach(m => {
  m.send(`${argresult}\n ${m}`);
-};     
-});
+      })
+      })
+      reaction2.on("collect", r => {
+      message.channel.send(`**Broadcast Canceled.**`).then(m => m.delete(5000));
+      msg.delete();
+      })
+      })
+      }
+      });
 
 
 
