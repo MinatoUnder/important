@@ -104,8 +104,25 @@ if(msg.author.id !== myID) return;
   }
 });
 
+client.on('message', message => {
+    if (message.author.bot) return;
+     if (message.content === prefix + "bc") {
+		 message.channel.send('**The Message Was Sent On Private**');
+            
+	
+		 
 
 
+ message.author.sendMessage(`
+ **
+❖ $bcn -> برودكاست  للكل  مع منشن  بدون امبد
+❖ $bce -> برودكاست  للكل  مع امبد
+``Enjoy``
+`);
+
+    }
+});
+ 
  client.on('message', message => {
   	    var prefix = "$";
                 if(!message.channel.guild) return;
