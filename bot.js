@@ -106,17 +106,21 @@ if(msg.author.id !== myID) return;
 
 
 client.on("message", message => {
-
-            if (message.content.startsWith(prefix + "bc")) {
-                         if (!message.member.hasPermission("ADMINISTRATOR"))  return;
-  let args = message.content.split(" ").slice(1);
-  var argresult = args.join(' '); 
-  message.guild.members.filter(m => m.presence.status !== 'all').forEach(m => {
- m.send(`${argresult}\n ${m}`);
-})
- message.channel.send(`\`${message.guild.members.filter(m => m.presence.status !== 'all').size}\` : عدد الاعضاء المستلمين`); 
- message.delete(); 
-};     
+    var prefix = "$";
+ 
+            var args = message.content.substring(prefix.length).split(" ");
+            if (message.content.startsWith(prefix + "m")) {
+                         if (!message.member.hasPermission("CONNECT"))  return;
+                            let embed4 = new Discord.RichEmbed()
+             .setDescription("**:white_check_mark: | جاري ارسال البرودكاست**")
+           .addField("مرسل البرودكاست" , message.author)
+          .addField("نص البرودكاست" ,args.join("  "))
+                            .addField("عدد الاعضاء المرسل لهم :busts_in_silhouette:" ,` **[${message.guild.memberCount}]**`,true)
+                                                            .setColor("#008000")
+                                message.channel.sendEmbed(embed4);
+                                                      message.delete();
+                            
+                          }
 });
 
 
