@@ -1254,59 +1254,32 @@ client.on('message', message => {
   });
 
 
-client.on('message', function(message) {
- //xRGRx .. By Julian
-    let args = message.content.split(" ").slice(1).join(" ");
-    if(message.content.startsWith(prefix + "setname")) {
-		        if(message.author.id !== myID) return;
-            if(!args) return message.reply('اكتب الحالة اللي تريدها.');
-        client.user.setUsername(args);
-        message.channel.send(':white_check_mark: Done!').then(msg => {
-           msg.delete(5000);
-          message.delete(5000);
-        });
-    } else if(message.content.startsWith(prefix + "stream")) {
-		        if(message.author.id !== myID) return;
-            if(!args) return message.reply('اكتب الحالة اللي تريدها.');
-        client.user.setGame(args , 'https://twitch.tv/JBot-Julian');
-        message.channel.send(':white_check_mark: Done!').then(msg => {
-           msg.delete(5000);
-          message.delete(5000);
-        });
-    } else if(message.content.startsWith(prefix + "pplay")) {
-				        if(message.author.id !== myID) return;
-            if(!args) return message.reply('اكتب الحالة اللي تريدها.');
-        client.user.setActivity(args);
-        message.channel.send(':white_check_mark: Done!').then(msg => {
-           msg.delete(5000);
-          message.delete(5000);
-        });
-    } else if(message.content.startsWith(prefix + "listen")) {
-				        if(message.author.id !== myID) return;
-            if(!args) return message.reply('��كت�� الحالة اللي تريدها.');
-        client.user.setActivity(args, {type:'LISTENING'});
-        message.channel.send(':white_check_mark: Done!').then(msg => {
-           msg.delete(5000);
-          message.delete(5000);
-        });
-    } else if(message.content.startsWith(prefix + "watch")) {
-				        if(message.author.id !== myID) return;
-            if(!args) return message.reply('اكتب الحالة اللي تريدها.');
-        client.user.setActivity(args, {type:'WATCHING'});
-        message.channel.send(':white_check_mark: Done!').then(msg => {
-           msg.delete(5000);
-          message.delete(5000);
-        });
-    } else if(message.content.startsWith(prefix + "setavatar")) {
-				        if(message.author.id !== myID) return;
-        client.user.setAvatar(args);
-        message.channel.send(':white_check_mark: Done!').then(msg => {
-                if(!args) return message.reply('اكتب الحالة اللي تريدها.');
-           msg.delete(5000);
-          message.delete(5000);
-        });
-    }
-}); 
+const adminprefix = "=";
+const devs = ['415595760990552065,395704557293797377'];
+client.on('message', message => {
+  var argresult = message.content.split(` `).slice(1).join(' ');
+    if (!devs.includes(message.author.id)) return;
+    
+if (message.content.startsWith(adminprefix + 'setgame')) {
+  client.user.setGame(argresult);
+    message.channel.sendMessage(`**${argresult} My game is now **`)
+} else 
+  if (message.content.startsWith(adminprefix + 'setname')) {
+client.user.setUsername(argresult).then
+    message.channel.sendMessage(`**${argresult}** : The bot name is changed to`)
+return message.reply("**You can not change the name. You must stay for two hours . **");
+} else
+  if (message.content.startsWith(adminprefix + 'setavatar')) {
+client.user.setAvatar(argresult);
+  message.channel.sendMessage(`**${argresult}** : Done look at my new good avatar :sunglasses:`);
+      } else     
+if (message.content.startsWith(adminprefix + 'setT')) {
+  client.user.setGame(argresult, "https://www.twitch.tv/idk");
+    message.channel.sendMessage(`**My twitch is now :  ${argresult}**`)
+}
+
+});
+
 
 
 
