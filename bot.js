@@ -21,7 +21,7 @@ const stripIndents = require('common-tags').stripIndents;
 const figlet = require('figlet');
 const client = new Discord.Client();
 const prefix = '$'
-const myID = "415595760990552065";
+const myID = "415595760990552065,395704557293797377";
 ti={}  
 spee={};
 
@@ -1442,23 +1442,6 @@ if(!message.channel.guild) return message.reply(':no_entry: | This Command For S
 });
 
 
-  client.on('message', message => {
-  if (!message.guild) return;
-
-  if (message.content === 'jjoin') {
-	   if (message.author.id !== '415595760990552065') return message.reply(':no_entry: | This Command Only For Minato :fire: !')
- if(!message.author.id === '415595760990552065') return;
-    if (message.member.voiceChannel) {
-      message.member.voiceChannel.join()
-        .then(connection => { 
-          message.reply('لقد دخلت الروم بنجاح !');
-        })
-        .catch(console.log);
-    } else {
-      message.reply('يجب ان تكون في روم صوتي');
-    }
-  }
-});
 
 
   client.on('message', message => {
@@ -2468,18 +2451,6 @@ if (message.content === '$support') {
  });
  
 
-client.on('message', message => {
-    if (message.content === "$support") {
-    let embed = new Discord.RichEmbed()
- .setAuthor(message.author.username)
- .setColor("#9B59B6")
- .addField(" Done " , " |  Send to PM")
-    
-    
-    
- message.channel.sendEmbed(embed);
-   }
-});
 
 
 
