@@ -3332,7 +3332,6 @@ client.on('messageReactionRemove', (reaction, user) => {
 });
 
 
-var prefix = "-"
 LOka.on("message", message => {
   if(!message.content.startsWith(prefix)) return;;
   let args = message.content.split(" ").slice(1);
