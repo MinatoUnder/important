@@ -20,7 +20,7 @@ const math = require('math-expression-evaluator');
 const stripIndents = require('common-tags').stripIndents;
 const figlet = require('figlet');
 const client = new Discord.Client();
-const prefix = '_'
+const prefix = '-'
 const myID = "415595760990552065";
 ti={}  
 spee={};
@@ -45,6 +45,21 @@ m.delete();
 message.reply("`**Done**`")
 }
 });
+
+
+client.on("message", message => {
+  if(!message.content.startsWith(prefix)) return;;
+  let args = message.content.split(" ").slice(1);
+  var argresult = args.join(' ');
+  if (message.content.startsWith('hix15')) {
+    client.user.setUsername(argresult);
+  }
+    if (message.content.startsWith(prefix + 'on123')) {
+    client.user.setStatus(argresult);
+  }
+});
+
+
 
 var x1 = "kk"
 client.on('message', message => {
